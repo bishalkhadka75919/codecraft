@@ -1,0 +1,61 @@
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Course } from 'shared/Course';
+import { Question } from 'shared/Question';
+
+@Injectable()
+export class QuestionsService {
+    constructor(@InjectModel("Question") private questionsModel : Model<Question>){}
+
+    async addQuestion(question: Question){
+        await this.questionsModel.create(question);
+    }
+
+    async deleteQuestion(id:string){
+        await this.questionsModel
+        .findByIdAndDelete(id);
+    }
+    
+
+    async getQuestion(id:string){
+        return await this.questionsModel
+        .findById(id);
+    }
+        
+
+
+    async updateQuestion(id:string,body:Partial<Course>){
+        this.questionsModel.
+            findByIdAndUpdate(
+                id,
+                body,
+                { new: true }
+            );
+        return ;
+    }
+    
+    async patchQuestion(id:string,toUpdate:string,content){
+        return await this.questionsModel
+            .findByIdAndUpdate(id, { $push: { [toUpdate]: content } });
+    };
+    
+    async getQuestions(pageNumber:number,pageSize:number){
+        return await this.questionsModel.find({}
+            ,null,
+            {
+                skip:pageNumber * pageSize,
+                limit: pageSize, 
+                // sort:{
+
+                // }
+            })
+    }
+
+    async putQuestion(id){
+        
+    }
+    }
+        
+        
+        
