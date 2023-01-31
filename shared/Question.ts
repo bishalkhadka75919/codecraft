@@ -24,11 +24,16 @@ export class Question
 
 class Solts{
 
-            _id: boolean;
 
+            @IsString()
+            _id: string;
+
+            @IsString()
             language: string;
 
+            @IsString()
             code: string;
             
+            @IsString()
             explanation: string;
 }

@@ -2,8 +2,10 @@ import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { createUserDto } from '../dtos/create-user-dto';
 import { UserService } from '../services/user.service';
 import * as bcrypt from 'bcrypt';import 'bcrypt';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('user')
+@ApiTags("User")
 export class UserController {
     constructor(private userService: UserService){}
    

@@ -14,13 +14,12 @@ async function bootstrap() {
 
 
   const config = new DocumentBuilder()
-    .setTitle(' example')
-    .setDescription('The cats API description')
+    .setTitle('Code Craft')
+    .setDescription('The Code Craft API description')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('CODECRAFT')
     .build();
- 
-    const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
   app.useGlobalFilters(

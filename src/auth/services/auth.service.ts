@@ -7,7 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthService {
   constructor(private userService: UserService, private jwtService:JwtService) {}
 
-  async validateUser(email: string, password: string) {
+  async validateUserByLocal(email: string, password: string) {
     let matchFound = false;
     const user = await this.userService.getUser({email});
 
@@ -21,6 +21,15 @@ export class AuthService {
     }
     return null;
   }
+
+    async validateUserByGoogle(accessToken: string, refreshToken: string, profile, done: Function) {
+    const { id, emails } = profile;
+    const user = await this.userService.findOrCreateUser({
+      googleId: id,
+      email: emails[0].value,
+    });
+      done(null, user);
+    }
 
   async login(user:any){
         const payload = { username: user.email, sub: user._id,roles:user.roles };

@@ -53,7 +53,7 @@ export class CourseService {
         return await this.courseModel.findByIdAndDelete(id);
         
     }
-    addCourseContext(){
-
+    addCourseContent(id:string,toPost:string,body){
+        
     }
 }

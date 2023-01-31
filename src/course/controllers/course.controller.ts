@@ -1,4 +1,5 @@
 import { BadGatewayException, BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { stdout } from 'process';
 import { Course } from 'shared/Course';
 import { Roles } from 'shared/decorators/roles.decorator';
@@ -7,6 +8,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { CourseService } from '../services/course.service';
 
 @Controller('course')
+@ApiTags('Course')
 export class CourseController {
     constructor(private courseService:CourseService){}
     // @Roles(Role.Admin)

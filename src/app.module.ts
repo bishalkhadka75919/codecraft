@@ -10,10 +10,12 @@ import { RolesGuard } from 'shared/guards/roles.guard';
 import { JwtModule } from '@nestjs/jwt';
 // import { ControllerController } from './quiz/controller/quiz.controller';
 // import { ControllerModule } from './quiz/quiz.module';
+// import { QuizModule } from './quiz/quiz.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://asd23:iEwFZ3mRy1VX37SR@cluster0.ymkq9k8.mongodb.net/?retryWrites=true&w=majority'),
+    // MongooseModule.forRoot('mongodb+srv://asd23:iEwFZ3mRy1VX37SR@cluster0.ymkq9k8.mongodb.net/?retryWrites=true&w=majority'),
+    MongooseModule.forRoot('mongodb+srv://CodeCraft:CodeCraft@cluster0.csrrwax.mongodb.net/CodeCraft?retryWrites=true&w=majority'),
     CourseModule, QuestionsModule, UserModule, AuthModule, CommonModule,
   JwtModule.register(
     {
@@ -21,6 +23,7 @@ import { JwtModule } from '@nestjs/jwt';
       signOptions:{expiresIn:'1d'}
     }
   ),
+  // QuizModule,
   ],
   // controllers: [AppController, QuestionsController,UserController,CourseController],
   // providers: [AppService, UserService, QuestionsService,CourseService],

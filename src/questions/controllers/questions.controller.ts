@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, Res } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { STATUS_CODES } from 'http';
 import { Question } from 'shared/Question';
 import { QuestionsService } from '../services/questions.service';
 
 @Controller('questions')
+@ApiTags('Questions')
 export class QuestionsController {
     constructor(private questionService:QuestionsService){}
 
@@ -26,12 +28,12 @@ export class QuestionsController {
             return await this.questionService.getQuestions(pageNumber,pageSize);
     }
 
-    @Delete(":/id")
+    @Delete("/:id")
     deleteQuestion(@Param() id :string){
         this.questionService.deleteQuestion(id);
     }
 
-    @Put("id")
+    @Put("/:id")
     updateQuestion(){
         // this.questionService.
 

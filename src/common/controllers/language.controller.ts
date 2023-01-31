@@ -1,14 +1,24 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Param, Body } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { LanguageService } from '../services/language.service';
 
-@Controller('language')
+@Controller('common/languages')
+@ApiTags('Common')
 export class LanguageController {
-    @Get()
-    getLanguages(){
+  constructor(private readonly languageService: LanguageService) {}
 
-    }
+  @Get()
+  async getAllLanguages() {
+    return await this.languageService.getAllLanguages();
+  }
 
-    @Post()
-    addLanguages(){
-        
-    }
+  @Post()
+  async addNewLanguage(@Body() body) {
+    return await this.languageService.addNewLanguage(body);
+  }
+
+  @Delete(':id')
+  async deleteLanguage(@Param('id') id) {
+    return await this.languageService.deleteLanguage(id);
+  }
 }

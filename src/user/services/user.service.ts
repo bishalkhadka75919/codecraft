@@ -20,4 +20,13 @@ export class UserService {
         return this.userModel.findOne(user);
     }
 
+    async findOrCreateUser(user){
+        const existingUser = await this.userModel.findOne({ email: user.email });
+        if (existingUser) {
+            return existingUser;
+        }
+        const createdUser = new this.userModel(user);
+        return createdUser.save();
+    }
+
 }

@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import * as mongoose  from "mongoose";
 
-export const quizSchema = new mongoose.Schema(
+export const QuizSchema = new mongoose.Schema(
     {
         question: {
             type: String,

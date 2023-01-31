@@ -1,5 +1,5 @@
-export class CourseDescription{
-    
+export class Description{
+
     description:string;
 
     requirement:string;
