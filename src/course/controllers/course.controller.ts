@@ -14,6 +14,7 @@ export class CourseController {
     // @Roles(Role.Admin)
     // @UseGuards(JwtAuthGuard)
     @Get()
+    @UseGuards(JwtAuthGuard)
     async getCourses(){
         return await this.courseService.getCourse();
     }
@@ -32,7 +33,7 @@ export class CourseController {
 
     @Post(":id")
     addCourseDesc(@Param("id") id:string, @Body() body: Course){
-
+        
     }
 
 

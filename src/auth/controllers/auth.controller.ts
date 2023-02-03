@@ -32,7 +32,7 @@ export class AuthController {
     // return req.user;
   }
 
-    @Get('google')
+  @Get('google')
   @UseGuards(AuthGuard('google'))
   googleLogin() {
     // triggers the Google OAuth flow

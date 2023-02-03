@@ -22,7 +22,7 @@ export class AuthService {
     return null;
   }
 
-    async validateUserByGoogle(accessToken: string, refreshToken: string, profile, done: Function) {
+  async validateUserByGoogle(accessToken: string, refreshToken: string, profile, done: Function) {
     const { id, emails } = profile;
     const user = await this.userService.findOrCreateUser({
       googleId: id,

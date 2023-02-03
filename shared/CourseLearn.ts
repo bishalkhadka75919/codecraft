@@ -1,4 +1,4 @@
-import { IsArray, IsMongoId, IsNumber, IsString } from "class-validator";
+import { IsArray, IsBoolean, IsMongoId, IsNumber, IsString } from "class-validator";
 
 export class Lesson {
     @IsString()
@@ -13,10 +13,14 @@ export class Lesson {
 }
 
 export class Chapter {
+    
+    @IsString()
     chapterTitle:string;
 
+    @IsString()
     content:string;
 
+    @IsBoolean()
     isFree:boolean;
 
     @IsMongoId()

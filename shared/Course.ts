@@ -41,5 +41,9 @@ export class Course  {
     @IsString()
     @IsMongoId()
     learn: string;
+
+    @IsString()
+    @IsMongoId()
+    question:string;
 };
 

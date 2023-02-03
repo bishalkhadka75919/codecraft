@@ -10,46 +10,76 @@ export class QuizService {
         @InjectModel('Quiz') private quizModel:Model<Quiz>,
         @InjectModel('Quiz') private questionModel:Model<Question>,
         ) {}
-async getQuizByCourseId(courseId: string) {
-const quizes = await this.quizModel.find({ courseId });
-return {
-quizes,
-};
-}
-
-async getQuizByLessonId(lessonId: string) {
-    const quizes = await this.quizModel.find({ lessonId });
-    return {
-        quizes,
-    };
-}
-
-async addQuiz(body, lessonId: string, courseId: string) {
-    await this.quizModel.create({
-        ...body,
-        lessonId,
-        courseId,
-    });
-    return {
-        message: 'quiz added!',
-    };
-}
-
-async addQuizQuestion(body, quizId: string) {
-    await this.questionModel.create({
-        ...body,
-        quizId,
-    });
-}
-
-async getQuizQuestion(quizId: string) {
-    const quizQuestions = await this.quizModel
-        .findById(quizId)
-        .populate('questions');
-    
+    async getQuizByCourseId(courseId: string) {
+        const quizes = await this.quizModel.find({ courseId });
         return {
-            questions: quizQuestions.question,
+        quizes,
         };
     }
+
+    async getQuizByLessonId(lessonId: string) {
+        const quizes = await this.quizModel.find({ lessonId });
+        return {
+            quizes,
+        };
+    }
+
+    async addQuiz(body, lessonId: string, courseId: string) {
+        await this.quizModel.create({
+            ...body,
+            lessonId,
+            courseId,
+        });
+        return {
+            message: 'quiz added!',
+        };
+    }
+
+    async addQuizQuestion(body, quizId: string) {
+        await this.questionModel.create({
+            ...body,
+            quizId,
+        });
+    }
+
+    async getQuizQuestion(quizId: string) {
+        const quizQuestions = await this.quizModel
+            .findById(quizId)
+            .populate('questions');
+        
+            return {
+                questions: quizQuestions.question,
+            };
+        }
+
+      async updateQuizQuestion(questionId, body) {
+    const questionUpdated = await this.questionModel.findByIdAndUpdate(
+      questionId,
+      body,
+      {
+        new: true,
+      },
+    );
+        return questionUpdated;
+    }
+
+    async deleteQuizQuestion(questionId) {
+        await this.questionModel.findByIdAndDelete(questionId);
+        return { message: 'quiz question deleted!' };
+    }
     
+    async updateQuiz(quizId, body) {
+        const updatedQuiz = await this.quizModel.findByIdAndUpdate(quizId, body, {
+        new: true,
+        });
+        return updatedQuiz;
+    }
+   
+    async deleteQuiz(quizId) {
+        await this.quizModel.findByIdAndDelete(quizId);
+        return { message: 'quiz deleted!' };
+  }
+
+
+  
 }

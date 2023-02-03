@@ -1,23 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Lesson, Chapter } from 'shared/CourseLearn';
+import { Lesson, Chapter, CourseLearn } from 'shared/CourseLearn';
 
 @Injectable()
 export class CourseLearnService {
     constructor(
         @InjectModel("Lesson") private lessonModel: Model<Lesson>,
-        @InjectModel("Chapter") private chapterModel: Model<Chapter>
+        @InjectModel("Chapter") private chapterModel: Model<Chapter>,
+        @InjectModel("courseLearn") private couseLearnModel: Model<CourseLearn>
     ) { }
     async getAll() {
-        const learn = await this.lessonModel
+        const learn = await this.couseLearnModel
             .find({})
             .populate('lessons')
             .populate('chapters');
-        return {
-            success: true,
-            learn,
-        };
+        return learn;
     }
 
     async addChapter(chapter, lessonId) {
@@ -47,6 +45,24 @@ export class CourseLearnService {
         };
     }
 
+    async deleteChapter(chapterId) {
+        await this.chapterModel.findByIdAndDelete(chapterId);
+
+    return { message: 'Chapter deleted!' };
+    }
+
+    async updateChapter(chapterId, body) {
+        const chapterUpdated = await this.chapterModel.findByIdAndUpdate(
+        chapterId,
+        body,
+        {
+            new: true,
+        },
+        );
+
+        return chapterUpdated;
+    }
+
     async addLesson(lesson, courseId) {
         await this.lessonModel.create({ ...lesson, courseId });
         return {
@@ -70,4 +86,24 @@ export class CourseLearnService {
             ...response,
         };
     }
+
+    async deleteLesson(lessonId) {
+    await this.lessonModel.findByIdAndDelete(lessonId);
+
+    return {
+      success: true,
+      message: 'lesson deleted!',
+    };
+  }
+
+  async updateLesson(lessonId, body) {
+    const updatedLesson = await this.lessonModel.findByIdAndUpdate(lessonId, body, {
+      new: true,
+    });
+
+    return {
+      message: 'Lesson Title Changed',
+      updatedLesson,
+    };
+  }
 }
