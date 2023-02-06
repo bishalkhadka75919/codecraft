@@ -8,7 +8,7 @@ export class AppService {
   /**
    *
    */
-  constructor( private readonly ) {
+  constructor(  ) {
     // super();
     
   }

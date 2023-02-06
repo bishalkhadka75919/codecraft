@@ -7,8 +7,8 @@ import { Quiz} from 'shared/Quiz';
 @Injectable()
 export class QuizService {
     constructor(
-        @InjectModel('Quiz') private quizModel:Model<Quiz>,
-        @InjectModel('Quiz') private questionModel:Model<Question>,
+        @InjectModel('courseQuiz') private quizModel:Model<Quiz>,
+        @InjectModel('courseQuestion') private questionModel:Model<Question>,
         ) {}
     async getQuizByCourseId(courseId: string) {
         const quizes = await this.quizModel.find({ courseId });

@@ -8,17 +8,21 @@ import { CourseQuestion } from "shared/CourseQuestions";
 @Injectable()
 export class QuestionService {
   constructor(
-            @InjectModel('Question') private readonly questionModel: Model<CourseQuestion>,
+            @InjectModel('courseQuestion') private readonly questionModel: Model<CourseQuestion>,
             @InjectModel('Course') private readonly courseModel:Model<Course>
   ) {}
+
+    async findOne(id: string){
+      return await this.questionModel.findById(id);
+  }
 
   async addQuestion(id,question) {
     const createdQuestion = new this.questionModel(question);
     await createdQuestion.save();
 
-        const course = await this.courseModel.findById(id);
-        course.question = createdQuestion._id.toString();
-        await course.save();
+    const course = await this.courseModel.findById(id);
+    course.question = createdQuestion._id.toString();
+    await course.save();
   }
 
 
@@ -33,7 +37,7 @@ export class QuestionService {
             { new: true }
         );
 
-        return updatedQuestion;
+    return updatedQuestion;
 
   }
 }

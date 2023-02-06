@@ -16,21 +16,25 @@ import { QuizSchema } from './schemas/quiz.schema';
 import { ChapterSchema, CourseLearnSchame, LessonSchema } from './schemas/courseLearn.schema';
 import { DescriptionSchema } from './schemas/courseDescription.schema';
 import { QuestionSchema } from './schemas/question.schema';
-import { ExampleSchema } from './schemas/example.schema';
+import { ExampleSchema, SolutionSchema } from './schemas/example.schema';
+import { QuestionService } from './services/question.service';
+import { ExampleService } from './services/example.service';
+import { QuestionController } from './controllers/question.controller';
+import { ExampleController } from './controllers/example.controller';
 
 @Module({
   imports: [MongooseModule.forFeature([
     {name:"Course",schema:CourseSchema},
     {name:"Lesson",schema:LessonSchema},
     {name:"Chapter",schema:ChapterSchema},
-    {name:"Quiz",schema:QuizSchema},
+    {name:"courseQuiz",schema:QuizSchema},
     {name:"courseLearn",schema:CourseLearnSchame},
     {name:"courseDescription",schema:DescriptionSchema},
-    {name:"Question",schema:QuestionSchema},
-    {name:"Example",schema:ExampleSchema}
-
+    {name:"courseQuestion",schema:QuestionSchema},
+    {name:"Example",schema:ExampleSchema},
+    {name:"Solution",schema:SolutionSchema}
   ])],
-  controllers: [CourseController,QuizController,DescriptionController,LearnController ],
-  providers: [CourseService, QuizService,DescriptionService,CourseLearnService]
+  controllers: [CourseController,QuizController,DescriptionController,LearnController , QuestionController,ExampleController],
+  providers: [CourseService, QuizService,DescriptionService,CourseLearnService, QuestionService,ExampleService]
 })
 export class CourseModule {}

@@ -2,6 +2,7 @@ import { Controller, Get, Param, Post, Body, UseGuards, Delete, Put } from '@nes
 import { QuizService } from '../services/courseQuiz.service';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { CreateQuizDto } from '../dtos/create-quiz.dto';
 
 @Controller('quiz')
 @ApiTags('Course Quiz')
@@ -10,7 +11,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
     @ApiOperation({ summary: 'Get Quiz from a Course' })
     // @UseGuards(AuthGuard('jwt'))
-    @Get('/course/:id')
+    @Get('/course/:courseId')
     async getQuizByCourseId(@Param('id') courseId: string) {
         return await this.quizService.getQuizByCourseId(courseId);
     }
@@ -25,7 +26,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
     // @UseGuards(AuthGuard('jwt'))
     
     @Post("/")
-    async addQuiz(@Body() body, @Param('lessonId') lessonId: string, @Param('courseId') courseId: string) {
+    async addQuiz(@Body() body:CreateQuizDto, @Param('lessonId') lessonId: string, @Param('courseId') courseId: string) {
         return await this.quizService.addQuiz(body, lessonId, courseId);
     }
 
@@ -60,7 +61,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
   }
 
     @Put('/:quizId')
-    async updateQuiz(@Param('quizId') quizId: string, @Body() body) {
+    async updateQuiz(@Param('quizId') quizId: string, @Body() body:CreateQuizDto) {
         return this.quizService.updateQuiz(quizId, body);
     }
 }

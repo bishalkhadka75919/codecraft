@@ -4,73 +4,87 @@ import { Model } from "mongoose";
 import { Course } from "shared/Course";
 import { Example } from "shared/Example";
 import { Solution } from "shared/Solution";
+import { CreateExampleDto } from "../dtos/create-example.dto";
 
 @Injectable()
 export class ExampleService {
     constructor(
         @InjectModel("Example") private exampleModel: Model<Example>,
         @InjectModel("Solution") private solutionModel: Model<Solution>,
-         @InjectModel('Course') private courseModel:Model<Course>,
+        @InjectModel('Course') private courseModel:Model<Course>,
         ){}
-
-        // [
-        //     {
-        //         question:"",
-        //         solution:"",
-        //         category:"",
-        //         courseId:""
-        //     }
-        // ]
-
         
-    async createExample(id,body){
-        const elements= body.solution;
-        const ids= await this.createSolutions(elements);
-
-        const example= await this.exampleModel.create({
+    async createExample(id,body:CreateExampleDto){
+        const createdSolutions = await Promise.all(body.solutions.map(async solution => {
+            const createdSolution = new this.solutionModel( solution );
+            console.log(solution);
+            // const newSolution= await createdSolution.save();
+            return createdSolution._id.toString();
+        }));
+        console.log(createdSolutions)
+        const createdExample = new this.exampleModel({
             question:body.question,
-            solutions:ids,
-        })
+            solutions:createdSolutions
+        });
+        createdExample.save();
+
+        console.log(createdExample);
+
+        // const elements= body.solution;
+        // const ids= await this.createSolutions(elements);
+
+        // const example= await this.exampleModel.create({
+        //     question:body.question,
+        //     solutions:ids,
+        // })
 
         const course = await this.courseModel.findById(id);
-        course.description = example._id.toString();
+        course.example = createdExample._id.toString();
         await course.save();
         }
 
-    async findExampleById(id){
+    async findExampleById(id): Promise<CreateExampleDto>{
         return await this.exampleModel.findById(id)
         .populate('solutions');
     }
 
-    async createSolutions(elements, ids=[]){
-        elements.forEach(
-            async (element)=> {
-                const solution= await this.solutionModel.create({category:element.category,description:element.description});
-                ids.push(solution._id.toString());
-            })
-        return ids;
-    }
+    // async createSolutions(elements, ids=[]){
+
+    //     // elements.forEach(
+    //     //     async (element)=> {
+    //     //         const solution= await this.solutionModel.create({category:element.category,description:element.description});
+    //     //         ids.push(solution._id.toString());
+    //     //     })
+    //     // return ids;
+    // }
 
     async deleteSolutionById(id){
         await this.solutionModel.deleteOne({_id:id});
     }
 
     async deleteExamplebyId(id){
-        await this.exampleModel.deleteOne({_id:id});
+        // await this.exampleModel.deleteOne({_id:id});
+        return await this.exampleModel.findByIdAndDelete(id).populate('solutions');
     }
 
-    async updateSolutiuon(id, body){
-        const updatedSolution = await this.solutionModel.findByIdAndUpdate(
-            id,
-            body,
-            { new: true }
-        );
+    async updateExample(id, body){
+        const updatedSolutions = await Promise.all(body.solutions.map(async solution => {
+            const updatedSolution = await this.solutionModel.findByIdAndUpdate(solution._id, { solution }, { new: true }).exec();
+            return updatedSolution._id;
+        }));
+        body.solutions = updatedSolutions;
+    return await this.exampleModel.findByIdAndUpdate(id, body, { new: true }).populate('solutions');
+        // const updatedSolution = await this.solutionModel.findByIdAndUpdate(
+        //     id,
+        //     body,
+        //     { new: true }
+        // );
 
-        return updatedSolution;
+        // return updatedSolution;
     }
 
     async getAllExamples(){
-        const example= await this.exampleModel.find({})
+        return await this.exampleModel.find({})
         .populate('solutions')
     }
 

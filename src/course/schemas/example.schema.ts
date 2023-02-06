@@ -2,9 +2,10 @@ import mongoose from "mongoose";
 
 export const ExampleSchema = new mongoose.Schema({
     question: { type: String, required:true },
-    solutions: [
-        { type:mongoose.Types.ObjectId, ref:'solutions'},
-            ]
+    solutions: [{ 
+        type:mongoose.Types.ObjectId,
+        ref:'Solution'
+        }]
 })
 
 

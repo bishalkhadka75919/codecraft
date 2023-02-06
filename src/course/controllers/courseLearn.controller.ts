@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Param, Body, Delete, Put } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Lesson } from 'shared/CourseLearn';
 import { CourseLearnService } from '../services/courseLearn.service';
 
 @Controller('learn')
@@ -17,7 +18,7 @@ private readonly courseLearnService: CourseLearnService) {}
 
     @ApiOperation({ summary: 'Add Lesson to a Course' })
     @Post('/:id/lesson')
-    async addLesson(@Param('id') courseId: string, @Body() lesson) {
+    async addLesson(@Param('id') courseId: string, @Body() lesson:Lesson) {
         await this.courseLearnService.addLesson( lesson, courseId );
         return { success: true, message: 'Lesson added!' };
     }

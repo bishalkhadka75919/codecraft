@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
+import { Solution } from 'shared/Solution';
 import {Course} from "../../../shared/Course"
+import { CreateCourseDto } from '../dtos/create-course.dto';
+import { SolutionSchema } from '../schemas/example.schema';
 
 @Injectable()
 export class CourseService {
@@ -14,7 +17,20 @@ export class CourseService {
         .find({})
         .populate('description')
         .populate('learn')
-        .populate('quiz');
+        // .populate('quiz');
+        .populate('question')
+          .populate({ 
+                path: 'example',
+                populate: {
+                path: 'solutions',
+                model: 'Solution'
+            } 
+        })
+        // .populate('example')
+        // .populate({
+        //     path: 'example.solutions',
+        //     model: 'Solution'
+        // })
 
     }
 
@@ -29,11 +45,11 @@ export class CourseService {
             'skillGained',
         ])
         .populate('learn')
-        .populate('quiz')
+        // .populate('quiz')
 
     }
 
-    async createCourse(body: Course){
+    async createCourse(body: CreateCourseDto){
         return this.courseModel.create(body);
 
         // const newCourse = this.courseModel(body);
@@ -54,6 +70,6 @@ export class CourseService {
         
     }
     addCourseContent(id:string,toPost:string,body){
-        
+    //    return  
     }
 }
