@@ -7,5 +7,5 @@ export const DescriptionSchema = new mongoose.Schema({
     duration: String,
     difficulty: String,
     totalLessons: [{ type: String }],
-    courseId: { type: mongoose.Types.ObjectId, ref: 'course' },
+    courseId: { type: mongoose.Types.ObjectId, ref: 'Course' },
 });

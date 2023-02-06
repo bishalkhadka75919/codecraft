@@ -6,17 +6,17 @@ import { Lesson, Chapter, CourseLearn } from 'shared/CourseLearn';
 @Injectable()
 export class CourseLearnService {
     constructor(
-        @InjectModel("Lesson") private lessonModel: Model<Lesson>,
-        @InjectModel("Chapter") private chapterModel: Model<Chapter>,
+        @InjectModel("courseLesson") private lessonModel: Model<Lesson>,
+        @InjectModel("courseChapter") private chapterModel: Model<Chapter>,
         @InjectModel("courseLearn") private couseLearnModel: Model<CourseLearn>
     ) { }
-    async getAll() {
-        const learn = await this.couseLearnModel
-            .find({})
-            .populate('lessons')
-            .populate('chapters');
-        return learn;
-    }
+    // async getAll() {
+    //     const learn = await this.couseLearnModel
+    //         .find({})
+    //         .populate('lessons')
+    //         .populate('chapters');
+    //     return learn;
+    // }
 
     async addChapter(chapter, lessonId) {
         const addedChapter = await this.chapterModel.create({ ...chapter, lessonId });
@@ -25,7 +25,7 @@ export class CourseLearnService {
         await lesson.save();
 
         return {
-            success: true,
+            success: true, 
             message: 'chapter added!',
         };
     }
@@ -39,6 +39,7 @@ export class CourseLearnService {
         }
 
         const response = chapter ? { chapter } : { chapters };
+        // console.log(await this.lessonModel.find({})," lol");
         return {
             success: true,
             ...response,
@@ -71,13 +72,15 @@ export class CourseLearnService {
         };
     }
 
-    async getLesson(lessonId, courseId) {
+    async getLesson(param) {
+        const { lessonId, chapterId } = param;
         let lessons, lesson;
 
         if (lessonId) {
+            console.log("lesson Id found")
             lesson = await this.lessonModel.findById(lessonId);
         } else {
-            lessons = await this.lessonModel.find({ courseId }).populate('chapters');
+            lessons = await this.lessonModel.find({ chapterId }).populate('chapters');
         }
 
         const response = { lesson: lessons ? lessons : lesson };

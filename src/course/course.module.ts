@@ -29,7 +29,9 @@ import { ExampleController } from './controllers/example.controller';
     {name:"Chapter",schema:ChapterSchema},
     {name:"courseQuiz",schema:QuizSchema},
     {name:"courseLearn",schema:CourseLearnSchame},
+    {name:"courseChapter",schema:ChapterSchema},
     {name:"courseDescription",schema:DescriptionSchema},
+    {name:"courseLesson",schema:LessonSchema},
     {name:"courseQuestion",schema:QuestionSchema},
     {name:"Example",schema:ExampleSchema},
     {name:"Solution",schema:SolutionSchema}

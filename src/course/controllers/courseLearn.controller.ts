@@ -1,6 +1,9 @@
-import { Controller, Get, Post, Param, Body, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Delete, Put, Req } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Request } from 'express';
 import { Lesson } from 'shared/CourseLearn';
+import { CreateChapterDto } from '../dtos/create-chapter.dto';
+import { CreateLessonDto } from '../dtos/create-lesson.dto';
 import { CourseLearnService } from '../services/courseLearn.service';
 
 @Controller('learn')
@@ -9,24 +12,32 @@ export class LearnController {
 constructor(
 private readonly courseLearnService: CourseLearnService) {}
 
-    @ApiOperation({ summary: 'Get All Courses' })
-    @Get()
-    async getAllLearn() {
-        const learn = await this.courseLearnService.getAll();
-        return { success: true, learn };
-    }
+    // @ApiOperation({ summary: 'Get All Courses' })
+    // @Get()
+    // async getAllLearn() {
+    //     const learn = await this.courseLearnService.getAll();
+    //     return { success: true, learn };
+    // }
 
     @ApiOperation({ summary: 'Add Lesson to a Course' })
     @Post('/:id/lesson')
-    async addLesson(@Param('id') courseId: string, @Body() lesson:Lesson) {
+    async addLesson(@Param('id') courseId: string, @Body() lesson:CreateLessonDto) {
         await this.courseLearnService.addLesson( lesson, courseId );
         return { success: true, message: 'Lesson added!' };
     }
 
-    @ApiOperation({ summary: 'Get Lesson from Course' })
-    @Get('/:id/lesson/')
-    async getLesson(@Param('id') courseId: string, @Param('lessonId') lessonId: string) {
-        const lesson = await this.courseLearnService.getLesson(courseId, lessonId);
+    @ApiOperation({ summary: 'Get Lesson by CourseId' })
+    @Get('/:courseId/lesson/')
+    async getLessonByCourseId(@Param('courseId') courseId: string, @Req() req:Request) {
+      // req.params
+        const lesson = await this.courseLearnService.getLesson( req.params);
+        return { success: true, lesson };
+    }
+
+    @ApiOperation({summary:'Get Lesson by LessonId'})
+    @Get('/lesson/:lessonId')
+    async getLessonByLessonId(@Param('lessonId') lessonId: string, @Req() req:Request) {
+        const lesson = await this.courseLearnService.getLesson(req.params);
         return { success: true, lesson };
     }
 
@@ -44,8 +55,8 @@ private readonly courseLearnService: CourseLearnService) {}
 
     @ApiOperation({ summary: 'Add Chapter to a Lesson' })
     @Post('/:id/lesson/:lessonId/chapter')
-    async addChapter(@Param('id') courseId: string, @Param('lessonId') lessonId: string, @Body() chapter) {
-        const addedChapter = await this.courseLearnService.addChapter(chapter, lessonId );
+    async addChapter(@Param('id') courseId: string, @Param('lessonId') lessonId: string, @Body() createChapterDto:CreateChapterDto) {
+        const addedChapter = await this.courseLearnService.addChapter(createChapterDto, lessonId );
         // await this.courseLearnService.updateLesson(lessonId, addedChapter._id);
         return { success: true, message: 'Chapter added!' };
     }
