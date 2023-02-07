@@ -29,7 +29,9 @@ async function bootstrap() {
   app.useGlobalFilters(new ValidationFilter());
   const configService = app.get(ConfigService);
 
-  const PORT = configService.get<number>('PORT') || 3000;
+  // const PORT = configService.get<number>('PORT') || 3000;
+  // console.log(PORT);
+  const PORT = configService.get<string>('config.app.port') || 3000;
   console.log(PORT);
 
   app.useGlobalPipes(
