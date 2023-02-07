@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Param, Body, Delete, Put, Req } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
-import { Lesson } from 'shared/CourseLearn';
+import { Lesson } from 'src/shared/CourseLearn';
 import { CreateChapterDto } from '../dtos/create-chapter.dto';
 import { CreateLessonDto } from '../dtos/create-lesson.dto';
 import { CourseLearnService } from '../services/courseLearn.service';

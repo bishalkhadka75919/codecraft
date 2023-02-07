@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Lesson, Chapter, CourseLearn } from 'shared/CourseLearn';
+import { Lesson, Chapter, CourseLearn } from 'src/shared/CourseLearn';
 
 @Injectable()
 export class CourseLearnService {

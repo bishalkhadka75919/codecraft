@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { Course } from "shared/Course";
-import { Example } from "shared/Example";
-import { Solution } from "shared/Solution";
+import { Course } from "src/shared/Course";
+import { Example } from "src/shared/Example";
+import { Solution } from "src/shared/Solution";
 import { CreateExampleDto } from "../dtos/create-example.dto";
 
 @Injectable()

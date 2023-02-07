@@ -1,6 +1,6 @@
     import { Controller, Get, Param, Body, Post, Put, UseGuards, Delete } from '@nestjs/common';
     import { ApiOperation, ApiTags } from '@nestjs/swagger';
-    import { Description } from 'shared/Description';
+    import { Description } from 'src/shared/Description';
 import { CreateDescriptionDto } from '../dtos/create-desc.dto';
     import { DescriptionService } from '../services/courseDescription.service';
     // import { Description } from '../entities/description.model';

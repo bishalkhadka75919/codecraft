@@ -1,8 +1,8 @@
 import { BadGatewayException, BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
-import { Course} from 'shared/Course';
-import { Roles } from 'shared/decorators/roles.decorator';
-import { Role } from 'shared/enums/role.enum';
+import { Course} from 'src/shared/Course';
+import { Roles } from 'src/shared/decorators/roles.decorator';
+import { Role } from 'src/shared/enums/role.enum';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { CreateCourseDto } from '../dtos/create-course.dto';
 import { CourseService } from '../services/course.service';

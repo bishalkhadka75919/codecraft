@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Post, Body, Delete, Put } from "@nestjs/common";
 import { QuestionService } from "../services/question.service";
-import { CourseQuestion } from "shared/CourseQuestions";
+import { CourseQuestion } from "src/shared/CourseQuestions";
 import { CreateQuestionDto } from "../dtos/create-question.dto";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 

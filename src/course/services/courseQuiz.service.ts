@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { QuizQuestion } from 'shared/CourseQuizQuestion';
-import { Question } from 'shared/Question';
-import { Quiz} from 'shared/Quiz';
+import { QuizQuestion } from 'src/shared/CourseQuizQuestion';
+import { Question } from 'src/shared/Question';
+import { Quiz} from 'src/shared/Quiz';
 
 @Injectable()
 export class QuizService {

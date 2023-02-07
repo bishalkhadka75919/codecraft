@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { Course } from "shared/Course";
-import { CourseQuestion } from "shared/CourseQuestions";
+import { Course } from "src/shared/Course";
+import { CourseQuestion } from "src/shared/CourseQuestions";
 import { CreateQuestionDto } from "../dtos/create-question.dto";
 // import { Question } from "shared/Question";
 

@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User } from '../../../shared/user.entity';
+import { User } from '../../shared/user.entity';
 
 @Injectable()
 export class UserService {

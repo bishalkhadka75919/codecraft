@@ -4,7 +4,7 @@ import { CourseController } from './controllers/course.controller';
 import { CourseService } from './services/course.service';
 import { CourseSchema} from './schemas/course.schema';
 // import { quizSchema } from './schemas/courseQuiz.schema';
-import { RolesGuard } from 'shared/guards/roles.guard';
+import { RolesGuard } from 'src/shared/guards/roles.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { QuizService } from './services/courseQuiz.service';
 import { DescriptionService } from './services/courseDescription.service';

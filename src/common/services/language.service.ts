@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Language } from '../../../shared/Language';
+import { Language } from '../../shared/Language';
 
 @Injectable()
 export class LanguageService {

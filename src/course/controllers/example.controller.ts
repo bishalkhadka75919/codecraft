@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Body, Param, Delete, Put } from "@nestjs/common";
 import { ExampleService } from "../services/example.service";
-import { Example } from "shared/Example";
-import { Solution } from "shared/Solution";
-import { Course } from "shared/Course";
+import { Example } from "src/shared/Example";
+import { Solution } from "src/shared/Solution";
+import { Course } from "src/shared/Course";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { CreateExampleDto } from "../dtos/create-example.dto";
 

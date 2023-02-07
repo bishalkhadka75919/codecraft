@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Solution } from 'shared/Solution';
-import {Course} from "../../../shared/Course"
+import { Solution } from 'src/shared/Solution';
+import {Course} from "../../shared/Course"
 import { CreateCourseDto } from '../dtos/create-course.dto';
 import { SolutionSchema } from '../schemas/example.schema';
 
