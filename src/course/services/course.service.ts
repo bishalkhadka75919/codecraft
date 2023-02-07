@@ -17,13 +17,12 @@ export class CourseService {
         .find({})
         .populate('description')
         .populate('learn')
-        // .populate('quiz');
+        .populate('quiz')
         .populate('question')
           .populate({ 
                 path: 'example',
-                populate: {
-                path: 'solutions',
-                model: 'Solution'
+                    populate: {
+                    path: 'solutions'
             } 
         })
         // .populate('example')

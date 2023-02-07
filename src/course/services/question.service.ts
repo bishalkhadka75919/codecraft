@@ -3,6 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Course } from "shared/Course";
 import { CourseQuestion } from "shared/CourseQuestions";
+import { CreateQuestionDto } from "../dtos/create-question.dto";
 // import { Question } from "shared/Question";
 
 @Injectable()
@@ -16,11 +17,14 @@ export class QuestionService {
       return await this.questionModel.findById(id);
   }
 
-  async addQuestion(id,question) {
+  async addQuestion(id,question:CreateQuestionDto) {
+    console.log(question)
     const createdQuestion = new this.questionModel(question);
     await createdQuestion.save();
 
     const course = await this.courseModel.findById(id);
+    console.log(course);  
+    
     course.question = createdQuestion._id.toString();
     await course.save();
   }

@@ -35,7 +35,7 @@ export class Course  {
     description:string;
 
     @IsString()
-    @IsMongoId()
+    // @IsMongoId()
     quiz: string;
    
     @IsString()

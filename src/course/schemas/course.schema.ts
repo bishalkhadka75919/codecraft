@@ -14,7 +14,7 @@ export const CourseSchema = new mongoose.Schema(
             type: mongoose.Types.ObjectId,
             ref: 'courseDescription',
         },
-        quiz: { type: mongoose.Types.ObjectId, ref: 'courseQuiz' },
+        quiz: [{ type: mongoose.Types.ObjectId, ref: 'courseQuiz' }],
         learn: { type: mongoose.Types.ObjectId, ref: 'courseLearn' },
         example: { type: mongoose.Types.ObjectId, ref: 'Example' },
         question: { type: mongoose.Types.ObjectId, ref: 'courseQuestion' },

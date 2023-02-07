@@ -18,7 +18,7 @@ export class ExampleService {
         const createdSolutions = await Promise.all(body.solutions.map(async solution => {
             const createdSolution = new this.solutionModel( solution );
             console.log(solution);
-            // const newSolution= await createdSolution.save();
+            await createdSolution.save();
             return createdSolution._id.toString();
         }));
         console.log(createdSolutions)
@@ -44,7 +44,7 @@ export class ExampleService {
         }
 
     async findExampleById(id): Promise<CreateExampleDto>{
-        return await this.exampleModel.findById(id)
+        return await this.exampleModel.findById((await this.courseModel.findById(id)).example)
         .populate('solutions');
     }
 

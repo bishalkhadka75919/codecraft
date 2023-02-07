@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { QuizQuestion } from 'shared/CourseQuizQuestion';
 import { Question } from 'shared/Question';
 import { Quiz} from 'shared/Quiz';
 
@@ -8,8 +9,10 @@ import { Quiz} from 'shared/Quiz';
 export class QuizService {
     constructor(
         @InjectModel('courseQuiz') private quizModel:Model<Quiz>,
-        @InjectModel('courseQuestion') private questionModel:Model<Question>,
+        @InjectModel('courseQuizQuestion') private questionModel:Model<QuizQuestion>,
         ) {}
+
+
     async getQuizByCourseId(courseId: string) {
         const quizes = await this.quizModel.find({ courseId });
         return {
@@ -48,7 +51,7 @@ export class QuizService {
             .populate('questions');
         
             return {
-                questions: quizQuestions.question,
+                questions: quizQuestions.questions,
             };
         }
 

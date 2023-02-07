@@ -30,8 +30,9 @@ export class CourseLearnService {
         };
     }
 
-    async getChapter(chapterId, lessonId) {
+    async getChapter(params) {
         let chapter, chapters;
+        const {chapterId,lessonId}=params;
         if (chapterId) {
             chapter = await this.chapterModel.findById(chapterId);
         } else {
@@ -84,6 +85,7 @@ export class CourseLearnService {
         }
 
         const response = { lesson: lessons ? lessons : lesson };
+
         return {
             success: true,
             ...response,

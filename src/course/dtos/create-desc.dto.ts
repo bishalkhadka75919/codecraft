@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString } from "class-validator";
+import { IsArray, IsString } from "class-validator";
 
 export class CreateDescriptionDto{
     
@@ -11,7 +11,7 @@ export class CreateDescriptionDto{
     @ApiProperty()
     requirement:string;
 
-    @IsString()
+    @IsArray()
     @ApiProperty()
     skillsGained:[string]
 
@@ -23,11 +23,11 @@ export class CreateDescriptionDto{
     @ApiProperty()
     difficulty:string;
 
-    @IsString()
+    @IsArray()
     @ApiProperty()
     totalLesson:[string]
 
     @IsString()
-    @ApiProperty()
+    // @ApiProperty()
     courseId:string;
 }    

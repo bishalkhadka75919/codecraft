@@ -24,7 +24,7 @@ export class DescriptionService {
     }
 
     async addDescription(courseId: string, description: Description): Promise<Description> {
-        try {
+        // try {
             const newDescription = await this.descriptionModel.create({
                 ...description,
                 courseId,
@@ -35,9 +35,9 @@ export class DescriptionService {
             await course.save();
 
             return newDescription;
-        } catch (err) {
-            throw new Error(err);
-        }
+        // } catch (err) {
+        //     throw new Error(err);
+        // }
     }
 
     async updateDescription(descriptionId: string, description: Description): Promise<Description> {

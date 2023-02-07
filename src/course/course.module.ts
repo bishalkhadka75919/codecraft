@@ -21,6 +21,7 @@ import { QuestionService } from './services/question.service';
 import { ExampleService } from './services/example.service';
 import { QuestionController } from './controllers/question.controller';
 import { ExampleController } from './controllers/example.controller';
+import { courseQuizQuestionSchema } from './schemas/courseQuizQuestion.schema';
 
 @Module({
   imports: [MongooseModule.forFeature([
@@ -32,6 +33,7 @@ import { ExampleController } from './controllers/example.controller';
     {name:"courseChapter",schema:ChapterSchema},
     {name:"courseDescription",schema:DescriptionSchema},
     {name:"courseLesson",schema:LessonSchema},
+    {name:"courseQuizQuestion",schema:courseQuizQuestionSchema},
     {name:"courseQuestion",schema:QuestionSchema},
     {name:"Example",schema:ExampleSchema},
     {name:"Solution",schema:SolutionSchema}

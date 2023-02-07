@@ -6,7 +6,7 @@ import { CreateChapterDto } from '../dtos/create-chapter.dto';
 import { CreateLessonDto } from '../dtos/create-lesson.dto';
 import { CourseLearnService } from '../services/courseLearn.service';
 
-@Controller('learn')
+@Controller('course')
 @ApiTags('Course Learn')
 export class LearnController {
 constructor(
@@ -20,8 +20,8 @@ private readonly courseLearnService: CourseLearnService) {}
     // }
 
     @ApiOperation({ summary: 'Add Lesson to a Course' })
-    @Post('/:id/lesson')
-    async addLesson(@Param('id') courseId: string, @Body() lesson:CreateLessonDto) {
+    @Post('/:courseId/lesson')
+    async addLesson(@Param('courseId') courseId: string, @Body() lesson:CreateLessonDto) {
         await this.courseLearnService.addLesson( lesson, courseId );
         return { success: true, message: 'Lesson added!' };
     }
@@ -54,22 +54,29 @@ private readonly courseLearnService: CourseLearnService) {}
     }
 
     @ApiOperation({ summary: 'Add Chapter to a Lesson' })
-    @Post('/:id/lesson/:lessonId/chapter')
-    async addChapter(@Param('id') courseId: string, @Param('lessonId') lessonId: string, @Body() createChapterDto:CreateChapterDto) {
+    @Post('/lesson/:lessonId/chapter')
+    async addChapter( @Param('lessonId') lessonId: string, @Body() createChapterDto:CreateChapterDto) {
         const addedChapter = await this.courseLearnService.addChapter(createChapterDto, lessonId );
         // await this.courseLearnService.updateLesson(lessonId, addedChapter._id);
         return { success: true, message: 'Chapter added!' };
     }
 
-    @ApiOperation({ summary: 'Get Chapter from a Lesson' })
-    @Get('/:id/lesson/:lessonId/chapter/:chapterId')
-    async getChapter(@Param('id') courseId: string, @Param('lessonId') lessonId: string, @Param('chapterId') chapterId: string) {
-        const chapter = await this.courseLearnService.getChapter(lessonId, chapterId);
+    @ApiOperation({ summary: 'Get Chapter from a LessonId' })
+    @Get('/lesson/:lessonId/chapter')
+    async getChapterByChapter(@Param('lessonId') lessonId: string, @Req() req:Request) {
+        const chapter = await this.courseLearnService.getChapter(req.params);
+        return { success: true, chapter };
+    }
+
+    @ApiOperation({ summary: 'Get Chapter from a LessonId and ChapterId' })
+    @Get('/lesson/:lessonId/chapter/:chapterId')
+    async getChapterByLessonId(@Param('lessonId') lessonId: string, @Param('chapterId') chapterId: string, @Req() req:Request) {
+        const chapter = await this.courseLearnService.getChapter(req.params);
         return { success: true, chapter };
     }
 
     @ApiOperation({ summary: 'Update a Chapter from a Lesson' })
-    @Put('/lesson/:lessonId/chapter/:chapterId')
+    @Put('/chapter/:chapterId')
     async updateChapter(
       @Param('chapterId') chapterId: string,
       @Body() chapter: any,
@@ -78,7 +85,7 @@ private readonly courseLearnService: CourseLearnService) {}
     }
 
     @ApiOperation({summary:'Delete a chapter from a Lesson'})
-    @Delete('/lesson/:lessonId/chapter/:chapterId')
+    @Delete('/chapter/:chapterId')
     async deleteChapter(
       @Param('chapterId') chapterId: string,
     ) {

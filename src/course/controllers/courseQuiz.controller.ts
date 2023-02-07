@@ -3,11 +3,30 @@ import { QuizService } from '../services/courseQuiz.service';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateQuizDto } from '../dtos/create-quiz.dto';
+import { CreateQuizQuestionDto } from '../dtos/create-quizquestion.dto';
 
 @Controller('quiz')
 @ApiTags('Course Quiz')
-    export class QuizController {
+export class QuizController {
     constructor(private readonly quizService: QuizService) {}
+    
+    @Post("/")
+    async addQuiz(@Body() body:CreateQuizDto, @Param('lessonId') lessonId: string, @Param('courseId') courseId: string) {
+        return await this.quizService.addQuiz(body, lessonId, courseId);
+    }
+    
+    @Post('/question')
+    async addQuizQuestion(@Body() body:CreateQuizQuestionDto, @Param('quizId') quizId: string) {
+        return await this.quizService.addQuizQuestion(body, quizId);
+    }
+    @Put('/:quizId')
+    async updateQuiz(@Param('quizId') quizId: string, @Body() body:CreateQuizDto) {
+        return this.quizService.updateQuiz(quizId, body);
+    }
+    @Delete('/:quizId')
+    async deleteQuiz(@Param('quizId') quizId: string) {
+        return this.quizService.deleteQuiz(quizId);
+    }
 
     @ApiOperation({ summary: 'Get Quiz from a Course' })
     // @UseGuards(AuthGuard('jwt'))
@@ -25,16 +44,8 @@ import { CreateQuizDto } from '../dtos/create-quiz.dto';
 
     // @UseGuards(AuthGuard('jwt'))
     
-    @Post("/")
-    async addQuiz(@Body() body:CreateQuizDto, @Param('lessonId') lessonId: string, @Param('courseId') courseId: string) {
-        return await this.quizService.addQuiz(body, lessonId, courseId);
-    }
 
     // @UseGuards(AuthGuard('jwt'))
-    @Post('/question')
-    async addQuizQuestion(@Body() body, @Param('quizId') quizId: string) {
-        return await this.quizService.addQuizQuestion(body, quizId);
-    }
 
     // @UseGuards(AuthGuard('jwt'))
     @Get('/question/:quizId')
@@ -43,10 +54,6 @@ import { CreateQuizDto } from '../dtos/create-quiz.dto';
     }
 
 
-    @Delete('/:quizId')
-    async deleteQuiz(@Param('quizId') quizId: string) {
-        return this.quizService.deleteQuiz(quizId);
-    }
 
     @Put('/question/:questionId')
     async updateQuizQuestion(
@@ -60,9 +67,5 @@ import { CreateQuizDto } from '../dtos/create-quiz.dto';
         return this.quizService.deleteQuizQuestion(questionId);
   }
 
-    @Put('/:quizId')
-    async updateQuiz(@Param('quizId') quizId: string, @Body() body:CreateQuizDto) {
-        return this.quizService.updateQuiz(quizId, body);
-    }
 }
 
