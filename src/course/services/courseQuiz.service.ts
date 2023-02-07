@@ -14,35 +14,43 @@ export class QuizService {
 
 
     async getQuizByCourseId(courseId: string) {
-        const quizes = await this.quizModel.find({ courseId });
+        const quizes = await this.quizModel.find({ courseId })
+        .populate('questions');
         return {
         quizes,
         };
     }
 
     async getQuizByLessonId(lessonId: string) {
-        const quizes = await this.quizModel.find({ lessonId });
+        const quizes = await this.quizModel.find({ lessonId })
+        .populate("questions");
         return {
             quizes,
         };
     }
 
-    async addQuiz(body, lessonId: string, courseId: string) {
-        await this.quizModel.create({
+    async addQuiz(body, lessonId: string, courseId: string,chapterId:string) {
+        const quiz=await this.quizModel.create({
             ...body,
-            lessonId,
-            courseId,
+            lessonId: lessonId,
+            courseId:courseId,
+            chapterId:chapterId,
         });
         return {
             message: 'quiz added!',
+            quizId:quiz._id
         };
     }
 
     async addQuizQuestion(body, quizId: string) {
-        await this.questionModel.create({
+        const quizQuestion= await this.questionModel.create({
             ...body,
             quizId,
         });
+
+        const quiz=await this.quizModel.findById(quizId);
+        quiz.questions.push(quizQuestion._id.toString());
+        await quiz.save()
     }
 
     async getQuizQuestion(quizId: string) {

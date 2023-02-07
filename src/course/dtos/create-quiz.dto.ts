@@ -3,15 +3,23 @@ import { IsString, IsArray } from "class-validator";
 
 export class CreateQuizDto{
 
+    @ApiProperty()
     @IsString()
-    @ApiProperty()
-    question:string;
+    quizTitle:string;
 
-    @IsArray()
-    @ApiProperty()
-    options:[string];
 
+    // @ApiProperty()
     @IsString()
-    @ApiProperty()
-    answer:string
+    lessonId:string;
+
+
+    // @ApiProperty()
+    @IsString()
+    chapterId:string;
+
+
+    // @ApiProperty()
+    @IsString()
+    questions:[string]
+
 }
