@@ -48,7 +48,7 @@ export class CourseController {
 
     @Delete(":courseId")
     @ApiOperation({summary:"Delete Course by Course Id"})
-    async deleteCourse(@Param("courseId") id){
+    async deleteCourse(@Param("courseId") id:string){
         return await this.courseService.deleteCourse(id);
     }
 }

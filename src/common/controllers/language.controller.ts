@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Delete, Param, Body } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { CreateLanguageDto } from '../dtos/create-lang.dto';
 import { LanguageService } from '../services/language.service';
 
 @Controller('common/languages')
@@ -8,16 +9,19 @@ export class LanguageController {
   constructor(private readonly languageService: LanguageService) {}
 
   @Get()
+  @ApiOperation({summary:"Get Languages"})
   async getAllLanguages() {
     return await this.languageService.getAllLanguages();
   }
 
   @Post()
-  async addNewLanguage(@Body() body) {
+  @ApiOperation({summary:"Add Language"})
+  async addNewLanguage(@Body() body:CreateLanguageDto) {
     return await this.languageService.addNewLanguage(body);
   }
 
   @Delete(':id')
+  @ApiOperation({summary:"Delete Language"})
   async deleteLanguage(@Param('id') id) {
     return await this.languageService.deleteLanguage(id);
   }

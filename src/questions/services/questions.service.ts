@@ -3,12 +3,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Course } from 'src/shared/Course';
 import { Question } from 'src/shared/Question';
+import { CreateQuestionDto } from '../dtos/create-ques.dto';
 
 @Injectable()
 export class QuestionsService {
     constructor(@InjectModel("Question") private questionsModel : Model<Question>){}
 
-    async addQuestion(question: Question){
+    async addQuestion(question: CreateQuestionDto){
         await this.questionsModel.create(question);
     }
 
@@ -25,7 +26,7 @@ export class QuestionsService {
         
 
 
-    async updateQuestion(id:string,body:Partial<Course>){
+    async updateQuestion(id:string,body:Partial<CreateQuestionDto>){
         this.questionsModel.
             findByIdAndUpdate(
                 id,
