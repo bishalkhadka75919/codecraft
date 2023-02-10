@@ -12,8 +12,8 @@ export class QuestionsController {
 
     @Post()
     @ApiOperation({summary:"Add Question"})
-    createQuestion(@Body() body : CreateQuestionDto, @Res() res){
-        this.questionService.addQuestion(body);
+    async createQuestion(@Body() body : CreateQuestionDto, @Res() res){
+        await this.questionService.addQuestion(body);
         return(res.status(200).send({message:"Successfully Added Question"}))
     }
 
@@ -34,21 +34,21 @@ export class QuestionsController {
 
     @Delete("/:id")
     @ApiOperation({summary:"Delete Question by Id"})
-    deleteQuestion(@Param() id :string){
-        this.questionService.deleteQuestion(id);
+    async deleteQuestion(@Param() id :string){
+        await this.questionService.deleteQuestion(id);
     }
 
     @Put("/:id")
     @ApiOperation({summary:"Update Question by Id"})    
-    updateQuestion(){
+    async updateQuestion(){
         // this.questionService.
 
     }
 
     @Patch("/:id")
     @ApiOperation({summary:"Update Question by Id"})
-    updateQuestionPatch(@Param() id : string, @Body() body:CreateQuestionDto, @Query("a") toPatch :string){
-        this.questionService.patchQuestion(id,toPatch,body);
+    async updateQuestionPatch(@Param() id : string, @Body() body:CreateQuestionDto, @Query("a") toPatch :string){
+        await this.questionService.patchQuestion(id,toPatch,body);
     }
 
 
