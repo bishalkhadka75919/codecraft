@@ -11,7 +11,10 @@ export class CategoryController {
   @Get()
   @ApiOperation({summary:"Get Categories"})
   async getCategories() {
-    return await this.categoryService.getCategories();
+    return(
+    {
+      categories: await this.categoryService.getCategories()
+    });
   }
 
   @Post()

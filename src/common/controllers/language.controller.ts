@@ -11,7 +11,9 @@ export class LanguageController {
   @Get()
   @ApiOperation({summary:"Get Languages"})
   async getAllLanguages() {
-    return await this.languageService.getAllLanguages();
+    return ({
+      languages:await this.languageService.getAllLanguages()
+    });
   }
 
   @Post()
