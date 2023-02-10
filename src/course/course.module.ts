@@ -37,7 +37,9 @@ import { courseQuizQuestionSchema } from './schemas/courseQuizQuestion.schema';
     {name:"courseQuestion",schema:QuestionSchema},
     {name:"Example",schema:ExampleSchema},
     {name:"Solution",schema:SolutionSchema}
-    // {name:"",schema}
+    // {name:"cheat",schema}
+    // {name:"cheatSheet",schema}
+    // {name:"cheatItems",schema}
   ])],
   controllers: [CourseController,QuizController,DescriptionController,LearnController , QuestionController,ExampleController],
   providers: [CourseService, QuizService,DescriptionService,CourseLearnService, QuestionService,ExampleService]

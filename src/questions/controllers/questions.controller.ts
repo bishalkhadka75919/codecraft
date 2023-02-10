@@ -5,7 +5,7 @@ import { Question } from 'src/shared/Question';
 import { CreateQuestionDto } from '../dtos/create-ques.dto';
 import { QuestionsService } from '../services/questions.service';
 
-@Controller('questions')
+@Controller('question')
 @ApiTags('Questions')
 export class QuestionsController {
     constructor(private questionService:QuestionsService){}
