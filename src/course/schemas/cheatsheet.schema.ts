@@ -20,7 +20,7 @@ export const CheatScehma = new mongoose.Schema({
             type:String,
             required:true
         },
-        cheats:[{
+        cheatItems:[{
             type:mongoose.Types.ObjectId,
             ref:'cheatItems'
         }]

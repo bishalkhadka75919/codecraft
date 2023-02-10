@@ -26,8 +26,8 @@ export class QuestionsController {
     @Get()
     @ApiOperation({summary:"Get Questions by PageNumber and PageSize"})
    async getQuestions(
-        @Query("pageSize") page:string,
-        @Query("pageNumber") limit:string,
+        @Query("page") page: string,
+        @Query("limit") limit: string,
         ){
             return await this.questionService.getQuestions(page,limit);
     }
