@@ -4,7 +4,7 @@ import { CourseQuestion } from "src/shared/CourseQuestions";
 import { CreateQuestionDto } from "../dtos/create-question.dto";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 
-@Controller('question')
+@Controller('course/question')
 @ApiTags('CourseQuestion')
 export class QuestionController {
   constructor(private readonly questionService: QuestionService) {}
