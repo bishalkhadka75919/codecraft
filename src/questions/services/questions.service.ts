@@ -41,17 +41,31 @@ export class QuestionsService {
             .findByIdAndUpdate(id, { $push: { [toUpdate]: content } });
     };
     
-    async getQuestions(pageNumber:number,pageSize:number){
-        return await this.questionsModel.find({}
-            ,null,
-            {
-                skip:pageNumber * pageSize,
-                limit: pageSize, 
-                // sort:{
-
-                // }
-            })
+    async getQuestions(page,limit){
+    
+        const totalCount = await this.questionsModel.find({}).count();
+        page = parseInt(page, 10) > 0 ? parseInt(page, 10) - 1 : 0;
+        limit = parseInt(limit, 10) || totalCount;
+        const endPage = page + 1 ? Math.ceil(totalCount / limit) : 1;
+        const questions = await this.questionsModel
+            .find({})
+            .skip(page * limit)
+            .limit(limit);
+        return ({
+            totalPages: totalCount,
+            endPage,
+            questions,
+        });
     }
+        // return await this.questionsModel.find({}
+        //     ,null,
+        //     {
+        //         skip:pageNumber * pageSize,
+        //         limit: pageSize, 
+        //         // sort:{
+
+        //         // }
+        //     })
 
     async putQuestion(id){
         
