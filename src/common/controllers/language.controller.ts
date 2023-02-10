@@ -3,7 +3,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateLanguageDto } from '../dtos/create-lang.dto';
 import { LanguageService } from '../services/language.service';
 
-@Controller('common/languages')
+@Controller('languages')
 @ApiTags('Common')
 export class LanguageController {
   constructor(private readonly languageService: LanguageService) {}
